@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import * as actions from '../../actions'
-import * as utils from '../../lib/utils'
+import * as utils from 'lib/utils'
 import './AddTodo.css'
-import AddTodoForm from '../AddTodoForm/AddTodoForm'
+import AddTodoFormContainer from 'containers/AddTodoFormContainer/AddTodoFormContainer'
 
 const AddTodo = ({ showAddTodoForm, toggleAddTodoForm, addTodo }) => {
     return (
         <div className={ classNames("add-todo", { "active": showAddTodoForm }) }>
             { showAddTodoForm
-                ? <AddTodoForm addTodo={ addTodo } />
+                ? <AddTodoFormContainer addTodo={ addTodo } />
                 : <button onClick={() => toggleAddTodoForm() } className="button add-todo__button toggle">Add a to-do</button>
             }    
         </div>
