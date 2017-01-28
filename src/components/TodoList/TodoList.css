@@ -1,0 +1,13 @@
+.todo-list {
+    margin-bottom: 15px;
+}
+
+.todo-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.todo-list ul li {
+    padding-bottom: 15px;
+    font-size: 1.2em;
+}

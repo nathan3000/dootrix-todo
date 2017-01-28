@@ -1,0 +1,31 @@
+.todo-item {
+    position: relative;
+    display: block;
+    padding-left: 1.85714em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.todo-item.completed {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.todo-item:before {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 24px;
+    height: 24px;
+    content: '';
+    background: #FFF;
+    border-radius: .21428571rem;
+    transition: border .1s ease,opacity .1s ease,transform .1s ease,box-shadow .1s ease;
+    border: 1px solid #D4D4D5;
+    font-size: 1.2em;
+}
+
+.todo-item.completed:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+}
