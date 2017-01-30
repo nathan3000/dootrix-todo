@@ -6,8 +6,16 @@
 
 .app-main {
     max-width: 800px;
-    min-width: 600px;
     min-height: 100%;
+    width: 100%;
     margin: 50px auto;
-    flex: 1
+    flex: 1;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+@media only screen and (min-width: 600px)  {
+    .app-main {
+        width: 600px;
+    }
 }
