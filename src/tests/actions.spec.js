@@ -57,7 +57,6 @@ describe('action creator', () => {
         })
 
         it('makes a POST request to api', () => {
-            console.log(TODO_API_HOST)
             nock(TODO_API_HOST)
                 .post('/api/todos')
                 .reply(200, { body: { todos: [] }})
@@ -155,6 +154,10 @@ describe('action creator', () => {
  
     describe('fetchTodos', () => {
         it('creates FETCH_TODOS_REQUEST action', () => {
+            nock(TODO_API_HOST)
+                .get('/api/todos')
+                .reply(200, { body: { todos: [] }})
+
             const fetchTodosRequest = actions.fetchTodosRequest()
             const expectedActions = [ fetchTodosRequest ]
 
@@ -202,10 +205,14 @@ describe('action creator', () => {
 
     describe('login', () => {
         it('creates a LOGIN_REQUEST action', () => {
+            const json = { "email": "test@example.com", "password": "password123" }
+            nock(TODO_API_HOST)
+                .post('/api/auth', json)
+                .reply(200, { success: true })
             const loginRequest = actions.loginRequest()
             const expectedActions = [ loginRequest ]
 
-            store.dispatch(actions.login())
+            store.dispatch(actions.login(json))
 
             expectedActions.map((action) => {
                 expect(store.getActions()).to.include(action)  
