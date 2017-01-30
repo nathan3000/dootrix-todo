@@ -1,11 +1,15 @@
 const TOKEN_NAME = 'jwtToken'
 
 export function getToken() {
-    return localStorage.getItem(TOKEN_NAME)
+    if(typeof(Storage) !== "undefined") {
+        return localStorage.getItem(TOKEN_NAME)
+    }   
 }
 
 export function setToken(token) {
-    localStorage.setItem(TOKEN_NAME, token)
+    if(typeof(Storage) !== "undefined") {
+        localStorage.setItem(TOKEN_NAME, token)
+    }
 }
 
 export function hasToken() {
