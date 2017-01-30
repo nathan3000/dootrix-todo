@@ -7,7 +7,6 @@ export const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case t.ADD_TODO_LOCAL:
             return Object.assign({}, state, {
