@@ -11,7 +11,8 @@ const AddTodo = ({ showAddTodoForm, toggleAddTodoForm, addTodo }) => {
         <div className={ classNames("add-todo", { "active": showAddTodoForm }) }>
             { showAddTodoForm
                 ? <AddTodoFormContainer addTodo={ addTodo } />
-                : <button onClick={() => toggleAddTodoForm() } className="button add-todo__button toggle">Add a to-do</button>
+                : <button onClick={() => toggleAddTodoForm() } 
+                          className="button add-todo__button toggle">Add a to-do</button>
             }    
         </div>
     )

@@ -3,7 +3,8 @@ import classnames from 'classnames'
 import './TodoItem.css'
 
 const TodoItem = ({ todo, onClick }) => (
-	<li className={ classnames("todo-item", { "completed" : todo.completed })} onClick={() => onClick(todo.id, !todo.completed) } >
+	<li className={ classnames("todo-item", { "completed" : todo.completed })} 
+		onClick={() => onClick(todo.id, !todo.completed) } >
 		{ todo.text }
 	</li>
 )
