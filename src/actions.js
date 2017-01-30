@@ -21,7 +21,8 @@ export function addTodo(todo) {
         return fetch(TODOS_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': auth.getToken()
                     },
                     body: JSON.stringify(todoItem)
                 })
@@ -89,7 +90,8 @@ export function toggleTodo(id, completed) {
         return fetch(`${TODOS_URL}/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': auth.getToken()
                 },
                 body: JSON.stringify({
                     completed: completed
