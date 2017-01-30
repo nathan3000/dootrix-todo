@@ -5,6 +5,7 @@
   "description": "Dootrix todo app for technical challenge",
   "dependencies": {
     "classnames": "^2.2.5",
+    "font-awesome": "^4.7.0",
     "immutability-helper": "~2.0.0",
     "isomorphic-fetch": "~2.2.1",
     "lodash": "^4.17.2",

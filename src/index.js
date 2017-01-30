@@ -6,6 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import './normalize.css';
+import 'font-awesome/css/font-awesome.css'
 import './index.css';
 import todoApp from './reducer'
 import * as actions from './actions'

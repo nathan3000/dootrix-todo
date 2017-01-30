@@ -3,10 +3,10 @@ var express = require('express')
 var app = express();
 var PORT = process.env.PORT || 8888
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
 app.listen(PORT, function(error) {
