@@ -36,25 +36,14 @@ render(
 )
 
 function requireAuth(store, replace) {
-  const state = store.getState()
-  if (!state.loggedIn) {
-      if (auth.hasToken()) {
-         store.dispatch(actions.loginSuccess())
-      } else {
-        replace({
-          pathname: '/login'
-        })
-      }      
-    }
-  }  
+    const state = store.getState()
+    if (!state.loggedIn) {
+        if (auth.hasToken()) {
+            store.dispatch(actions.loginSuccess())
+        } else {
+          replace({
+            pathname: '/login'
+          })
+        }      
+    } 
 }
-
-
-// Log the initial state
-console.log(store.getState())
-
-// Every time the state changes, log it
-// Note that subscribe() returns a function for unregistering the listener
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
-)

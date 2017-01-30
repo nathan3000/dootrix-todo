@@ -5,14 +5,14 @@ const autoprefixer = require('autoprefixer');
 var package = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 var StringReplacePlugin = require("string-replace-webpack-plugin");
-var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 
 var isProd = (process.env.NODE_ENV === 'production');
 var isDev = (process.env.NODE_ENV === 'development');
-var publicUrl = '/public';
+
+let publicUrl = isDev ? '/public' : ''
 
 require('es6-promise').polyfill();
 
@@ -41,8 +41,12 @@ function getPlugins() {
     // Conditionally add plugins for Production builds.
     if (isProd) {
         plugins.push(
-            new webpack.optimize.UglifyJsPlugin(),
-            new CleanWebpackPlugin(['dist'])
+            new webpack.optimize.UglifyJsPlugin({
+                minimize: true,
+                compress: {
+                    warnings: false
+                }
+            })
         );
     }
 
@@ -70,7 +74,7 @@ module.exports = {
     },
 
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, 'public'),
         filename: '[name].js',
         publicPath: '/'
     },

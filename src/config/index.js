@@ -7,6 +7,8 @@ const config = function() {
             return devConfig
         case 'test':
             return testConfig
+        case 'prod':
+            return prodConfig
         default:
             return devConfig
     }
