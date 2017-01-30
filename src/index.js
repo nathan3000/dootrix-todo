@@ -3,11 +3,17 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import './normalize.css';
 import './index.css';
 import todoApp from './reducer'
-import App from 'containers/App/App';
+import * as actions from './actions'
+import auth from 'lib/auth'
+import App from 'containers/App/App'
+import HomePage from 'containers/HomePage/HomePage'
+import LoginPage from 'containers/LoginPage/LoginPage'
+import LogoutPage from 'containers/LogoutPage/LogoutPage'
 
 const store = createStore(
   todoApp,
@@ -18,16 +24,37 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={HomePage} onEnter={(nextState, replace) => requireAuth(store, replace)} />
+        <Route path="/login" component={LoginPage}/>
+        <Route path="/logout" component={LogoutPage}/>
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('root')
 )
 
-// // Log the initial state
-// console.log(store.getState())
+function requireAuth(store, replace) {
+  const state = store.getState()
+  if (!state.loggedIn) {
+      if (auth.hasToken()) {
+         store.dispatch(actions.loginSuccess())
+      } else {
+        replace({
+          pathname: '/login'
+        })
+      }      
+    }
+  }  
+}
 
-// // Every time the state changes, log it
-// // Note that subscribe() returns a function for unregistering the listener
-// let unsubscribe = store.subscribe(() =>
-//   console.log(store.getState())
-// )
+
+// Log the initial state
+console.log(store.getState())
+
+// Every time the state changes, log it
+// Note that subscribe() returns a function for unregistering the listener
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+)

@@ -69,12 +69,11 @@ describe('todo reducer', () => {
             const json = [ { "id": "123123", "text": "Buy milk", "completed": false }]
             const newState = reducer(undefined, actions.fetchTodosSuccess(json))
             expect(newState.todos.length).to.equal(1)
-            expect(newState.todos.id).to.equal(json[0].id)
-            expect(newState.todos.text).to.equal(json[0].text)
-            expect(newState.todos.completed).to.equal(json[0].completed)
+            expect(newState.todos[0].id).to.equal(json[0].id)
+            expect(newState.todos[0].text).to.equal(json[0].text)
+            expect(newState.todos[0].completed).to.equal(json[0].completed)
             expect(newState.isFetching).to.equal(false)
         })
     })
-
 
 })

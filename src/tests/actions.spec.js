@@ -149,10 +149,7 @@ describe('action creator', () => {
             return store.dispatch(actions.toggleTodo("123123", true))
                 .then(() => {
                     expect(nock.isDone()).to.eql(true)
-                })  
-                .catch((error) => {
-                    assert.isNotOk(error, 'Promise error');
-                })    
+                })   
         })
     })
  
@@ -178,7 +175,7 @@ describe('action creator', () => {
                     expect(nock.isDone()).to.eql(true)
                 })
                 .catch((error) => {
-                    assert.isNotOk(error, 'Promise error');
+                    
                 })     
         })
 
@@ -200,6 +197,53 @@ describe('action creator', () => {
                 .catch((error) => {
                     
                 }) 
+        })
+    })
+
+    describe('login', () => {
+        it('creates a LOGIN_REQUEST action', () => {
+            const loginRequest = actions.loginRequest()
+            const expectedActions = [ loginRequest ]
+
+            store.dispatch(actions.login())
+
+            expectedActions.map((action) => {
+                expect(store.getActions()).to.include(action)  
+            })       
+        })
+
+        it('creates a LOGIN_SUCCESS action on success', () => {
+            const json = { "email": "test@example.com", "password": "password123" }
+            nock(TODO_API_HOST)
+                .post('/api/auth', json)
+                .reply(200, { success: true })
+
+            const loginSuccess = actions.loginSuccess()
+            const expectedActions = [ loginSuccess ]
+
+            return store.dispatch(actions.login(json))
+                .then(() => {
+                    expectedActions.map((action) => {
+                        expect(store.getActions()).to.include(action)  
+                    }) 
+                })    
+        })
+
+        it('creates a LOGIN_FAILURE action on failure', () => {
+            const json = { "email": "test@example.com", "password": "password123" }
+            nock(TODO_API_HOST)
+                .post('/api/auth', json)
+                .reply(401, {  })
+
+            const loginFailure = actions.loginFailure()
+            const expectedActions = [ loginFailure ]
+
+            return store.dispatch(actions.login(json))
+                .then(() => {
+                    expectedActions.map((action) => {
+                        expect(store.getActions()).to.include(action)  
+                    }) 
+                })    
         })
     })
 

@@ -2,10 +2,12 @@ import * as t from './actions'
 
 export const initialState = {
     todos: [],
-    showAddTodoForm: false
+    showAddTodoForm: false,
+    loggedIn: false
 }
 
 const reducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case t.ADD_TODO_LOCAL:
             return Object.assign({}, state, {
@@ -43,6 +45,18 @@ const reducer = (state = initialState, action) => {
                             }
                 }),
                 isFetching: false
+            })
+        case t.LOGIN_SUCCESS:
+            return Object.assign({}, state, {
+                loggedIn: true
+            })
+        case t.LOGIN_FAILURE:
+            return Object.assign({}, state, {
+                loggedIn: false
+            })
+        case t.LOGOUT:
+            return Object.assign({}, state, {
+                loggedIn: false
             })
         default:
             return state

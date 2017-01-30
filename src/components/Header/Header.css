@@ -1,0 +1,27 @@
+.app-header {
+    background-color: #03A9F4;
+    height: 56px;
+}
+
+.app-header__container {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.app-header__buttons {
+    padding-top: 7px;
+}
+
+.app-header__button {
+    background: transparent;
+}
+
+.app-header__button a {
+    color: white;
+    text-decoration: none;
+}
+
+.app-header__button:hover {
+    box-shadow: 0 0 0 1px #fefefe;
+}
+

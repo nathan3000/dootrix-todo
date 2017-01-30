@@ -1,10 +1,12 @@
 import fetch from 'isomorphic-fetch'
 import config from 'config'
+import * as auth from 'lib/auth'
 
-const { TODO_API_HOST, API_ENDPOINT, TODOS_ENDPOINT } = config
+const { TODO_API_HOST, API_ENDPOINT, TODOS_ENDPOINT, AUTH_ENDPOINT } = config
 
 const API = `${TODO_API_HOST}${API_ENDPOINT}`
 const TODOS_URL = `${API}${TODOS_ENDPOINT}`
+const LOGIN_URL = `${API}${AUTH_ENDPOINT}`
 
 
 export function addTodo(todo) {
@@ -122,10 +124,14 @@ export function fetchTodos() {
     return function (dispatch) {
         dispatch(fetchTodosRequest())
 
-        return fetch(TODOS_URL)
+        return fetch(TODOS_URL, { 
+                    headers: {
+                        'Authorization': auth.getToken()
+                        }
+                    })
                 .then(response => response.json())
                 .then(json => dispatch(fetchTodosSuccess(json)))
-                // .catch(err => console.log(err))
+                .catch(err => console.log(err))
     }
 }
 
@@ -135,5 +141,64 @@ export function fetchTodosSuccess(json) {
     return {
         type: FETCH_TODOS_SUCCESS,
         json
+    }
+}
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+
+export function loginRequest() {
+    return {
+        type: LOGIN_REQUEST
+    }
+}
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+
+export function loginSuccess(response) {
+    return {
+        type: LOGIN_SUCCESS
+    }
+}
+
+export function login(loginDetails) {
+    return function(dispatch) {
+        dispatch(loginRequest())
+
+        return fetch(LOGIN_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginDetails)
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if (!json.success) {
+                        return dispatch(loginFailure(json))
+                    } else {
+                        if(typeof(Storage) !== "undefined"){
+                            auth.setToken(json.token)
+                        }                        
+                        return dispatch(loginSuccess(json))
+                    }
+                })
+                .catch(err => console.log(err))
+
+    }
+}
+
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+
+export function loginFailure(response) {
+    return {
+        type: LOGIN_FAILURE
+    }
+}
+
+export const LOGOUT = 'LOGIN'
+
+export function logout() {
+    return {
+        type: LOGOUT
     }
 }
