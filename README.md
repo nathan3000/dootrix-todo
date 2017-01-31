@@ -1,6 +1,8 @@
 # React / Redux Todo App
 
-Todo app using the React/Redux libraries. Frontend app to go along with API: [https://github.com/nathan3000/dootrix-todo-api](https://github.com/nathan3000/dootrix-todo-api)
+Todo app using the React/Redux libraries. Frontend app to go along with API: [https://github.com/nathan3000/dootrix-todo-api](https://github.com/nathan3000/dootrix-todo-api). 
+
+Less features, but look, tests!
 
 ## Technologies
 
