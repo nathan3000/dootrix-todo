@@ -34,6 +34,8 @@ Password: demo
 (Free tier Heroku, might be slow on first hit) <br />
 [Demo link](https://safe-dawn-70415.herokuapp.com) 
 
+Tested in Chrome 55
+
 ## Installation
 To install dependencies.
 
